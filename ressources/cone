@@ -1,0 +1,16 @@
+cone
+1
+50
+pos 0 0 0
+color 255 255 0 0
+rot 60 60 60
+END
+plan
+1
+pos 0 0 -200
+color 255 255 255 255
+END
+light
+1
+pos 0 200 200
+END

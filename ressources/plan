@@ -1,0 +1,10 @@
+plan
+1
+pos 0 0 -25
+color 255 255 255 255
+rot 0 0 0
+END
+light
+1
+pos 0 0 200
+END

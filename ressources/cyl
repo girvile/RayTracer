@@ -1,0 +1,24 @@
+cylinder
+1
+radius 50
+pos 0 0 0
+color 255 255 0 0
+END
+plan
+2
+pos 0 0 -30
+color 255 255 255 255
+END
+pos 0 0 100
+color 255 0 0 255
+rot 90 0 0
+END
+light
+2
+pos 0 0 200
+END
+pos 0 100 300
+END
+ambient light
+40
+END

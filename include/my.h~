@@ -1,0 +1,197 @@
+/*
+** my.h for my.h in /home/pion_b/graph/include
+**
+** Made by Virgile
+** Login   <pion_b@epitech.net>
+**
+** Started on  Sun Nov 13 21:40:31 2016 Virgile
+** Last update Sun Feb 26 20:47:03 2017 virgile
+*/
+
+#ifndef MY_H_
+#define MY_H_
+
+#include <SFML/Audio.h>
+#include <SFML/Graphics.h>
+#include <stdlib.h>
+#include <SFML/Graphics/RenderWindow.h>
+#include <math.h>
+
+/*
+** MACROS
+*/
+#define WTH (1240)
+#define HGT (720)
+
+typedef struct		s_my_framebuffer
+{
+  sfUint8*		pixels;
+  int			width;
+  int			height;
+}			t_my_framebuffer;
+
+typedef struct		s_light
+{
+  sfVector3f		pos;
+}			t_light;
+
+typedef struct		s_plan
+{
+  sfVector3f		pos;
+  sfVector3f		rotation;
+  sfColor		color;
+  float			k;
+}			t_plan;
+
+typedef struct		s_sphere
+{
+  float			radius;
+  sfVector3f		pos;
+  sfColor		color;
+  float			k;
+  sfVector3f		rotation;
+}			t_sphere;
+
+typedef struct		s_cone
+{
+  float			angle;
+  sfVector3f		pos;
+  sfColor		color;
+  float			k;
+  sfVector3f		rotation;
+}			t_cone;
+
+typedef struct		s_cyl
+{
+  float			radius;
+  sfVector3f		pos;
+  sfColor		color;
+  float			k;
+  sfVector3f		rotation;
+}			t_cyl;
+
+typedef struct		s_data
+{
+  int			nb_light;
+  t_light		*light;
+  int			nb_cyl;
+  t_cyl			*cyl;
+  int			nb_cone;
+  t_cone		*cone;
+  int			nb_plan;
+  t_plan		*plan;
+  int			nb_sphere;
+  t_sphere		*sphere;
+  sfVector3f		eye_pos;
+  int			**map;
+  char			*path;
+  t_my_framebuffer	*buffer;
+  sfSprite		*sprite;
+  sfTexture		*texture;
+  sfMusic		*music;
+  int			nb_obj;
+  int			obj;
+  sfColor		color;
+  sfColor		color_obj;
+  sfVector2i		screen_pos;
+  sfVector2i		screen_size;
+  sfVector3f		dir_vector;
+  sfVector3f		normale;
+  sfVector3f		lum_vector;
+  sfVector3f		lumiere;
+  float			k_lum;
+  sfVector3f		pos_min;
+  float			produit_scalaire;
+  float			angle;
+  float			ambient_light;
+  sfColor		background;
+  int			lumiere_on;
+  sfEvent		event;
+  float			k_min;
+  float			cos_angle;
+  float			coef_color;
+}			t_data;
+
+/*
+** Main functions
+*/
+float			eq_solver(float a, float b, float c);
+void			my_draw_objects(t_data *d);
+void			full_buffer(t_my_framebuffer *framebuffer, sfColor color);
+void			buffer_destroy(t_my_framebuffer *buffer);
+void			my_draw_sphere(t_data *d);
+sfColor			edit_color(int a, int r, int g, int b);
+int			main(int ac, char **av);
+t_my_framebuffer	*my_framebuffer_create(int width, int height);
+int			my_getnbr(char *str);
+t_light			*make_default_light(float x, float y, float z);
+void			calcul_light(t_data *d);
+sfVector3f		my_load_pos(char *str);
+int			is_sphere_on_light(t_sphere *, sfVector3f, sfVector3f, sfVector2i);
+int			is_cone_on_light(t_cone *, sfVector3f, sfVector3f, sfVector2i);
+int			is_plan_on_light(t_plan *, sfVector3f, sfVector3f, sfVector2i);
+int			is_cyl_on_light(t_cyl *, sfVector3f, sfVector3f, sfVector2i);
+int			my_strncmp(char *str, char *str2, int n);
+/*
+** Mainloop
+*/
+void			my_load_map(t_data *d);
+void			init_loop(t_data *d);
+void			my_refresh(t_data *d, sfRenderWindow *window);
+void			clean_objects(sfRenderWindow *window, t_data *d);
+int			mainloop(sfRenderWindow *window, t_data *d);
+
+/*
+** Events
+*/
+void			events(t_data *d, sfRenderWindow *window);
+void			move_obj(t_data *d);
+/*
+** Load map
+*/
+sfColor			my_load_color(char *str);
+void			my_load_plan(t_data *d, int fd);
+void			my_load_sphere(t_data *d, int fd);
+void			my_load_cone(t_data *d, int fd);
+void			my_load_cyl(t_data *d, int fd);
+int			parse_nb(char *str);
+
+/*
+** Geometric functions
+*/
+int			is_on_light(t_data *d, int i, int obj);
+sfColor			multiply_color(sfColor color, float coef);
+sfVector3f		get_point_form(sfVector3f eye_pos,		\
+				       sfVector3f dir_vector, float k);
+sfVector3f		my_vectorize(sfVector3f a, sfVector3f b);
+sfVector3f		opposite_vector(sfVector3f vector);
+sfVector3f		rotate_xyz(sfVector3f to_rotate, sfVector3f angles);
+sfVector3f		rotate_zyx(sfVector3f to_rotate, sfVector3f angles);
+float			my_norme(sfVector3f vector);
+float			my_scalaire(sfVector3f va, sfVector3f vb);
+sfVector3f		make_pos(float x, float y, float z);
+void			my_draw_objects(t_data *d);
+float			intersect_plane(sfVector3f eye_pos,		\
+					sfVector3f obj, sfVector3f dir_vector);
+float			intersect_sphere(sfVector3f eye_pos,		\
+					 sfVector3f obj, sfVector3f dir_vector, float radius);
+float			intersect_cone(sfVector3f eye_pos,		\
+					 sfVector3f obj, sfVector3f dir_vector, float angle);
+float			intersect_cyl(sfVector3f eye_pos,		\
+					 sfVector3f obj, sfVector3f dir_vector, float radius);
+sfVector3f		calc_dir_vector(float dist_to_plane,		\
+					sfVector2i screen_size, sfVector2i screen_pos);
+void			my_pixel(t_my_framebuffer *framebuffer,	\
+				     int x, int y, sfColor color);
+void			my_put_pixel(t_my_framebuffer *framebuffer,	\
+				     int x, int y, sfColor color);
+void			my_draw_line(t_my_framebuffer *framebuffer,	\
+				     sfVector2i from, sfVector2i to,	\
+				     sfColor color);
+void			my_line(t_my_framebuffer *framebuffer,	\
+				     sfVector2i from, sfVector2i to,	\
+				     sfColor color);
+float			get_coef(int a, int b, int c, int d);
+sfVector2i		makepoint(int x, int y);
+
+#endif /*MY_H_*/

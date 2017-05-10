@@ -1,0 +1,39 @@
+sphere
+2
+50
+pos 0 -20 0
+color 255 255 0 0
+END
+50
+pos 0 100 0
+color 255 255 255 0
+END
+cone
+1
+20
+pos 0 -100 0
+color 255 200 100 0
+rot 60 0 0
+END
+cylinder
+1
+50
+pos 0 -200 0
+color 255 0 255 255
+END
+plan
+1
+pos 0 0 -100
+color 255 129 200 165
+END
+light
+3
+pos 0 0 300
+END
+pos 50 200 100
+END
+pos 0 0 0
+END
+ambient light
+40
+END

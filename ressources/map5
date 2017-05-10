@@ -1,0 +1,22 @@
+sphere
+4
+50
+pos 0 150 200
+color 255 255 255 255
+50
+pos 0 0 200
+color 255 0 0 255
+50
+pos 0 100 200
+color 255 255 0 255
+50
+pos 0 200 200
+color 255 0 255 255
+plan
+1
+pos 0 0 -25
+color 255 0 100 255
+light
+2
+pos 0 0 500
+pos 0 300 200
